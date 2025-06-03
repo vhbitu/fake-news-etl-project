@@ -5,14 +5,18 @@ import time
 import random
 
 async def scrape_detail():
+    # Lê o CSV de listagem
     df_listagem = pd.read_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/raw/dados_listagem_aosfatos.csv")
+
+    # Teste com 2 links
     df_teste = df_listagem.head(2)
 
     dados_detalhados = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
-        page = await browser.new_page()
+        browser = await p.chromium.launch(headless=False)  # Mantém visual para inspeção
+        context = await browser.new_context()
+        page = await context.new_page()
 
         for index, row in df_teste.iterrows():
             link = row['link']
@@ -20,25 +24,25 @@ async def scrape_detail():
 
             try:
                 await page.goto(link, timeout=60000)
-                await page.wait_for_load_state("networkidle", timeout=20000)
+                await page.wait_for_load_state("networkidle", timeout=60000)
+                await asyncio.sleep(2)  # Espera extra para garantir carregamento completo
 
-                # Data de publicação
+                # *** Ponto de depuração ***
+                await page.pause()
+
+                # Depois que identificarmos os seletores corretos, voltaremos aqui com o scraping normal:
                 try:
-                    data_element = await page.query_selector("time")
-                    data_publicacao = await data_element.get_attribute("datetime")
+                    data_publicacao = await page.locator("time").get_attribute("datetime")
                 except:
                     data_publicacao = "não encontrado"
 
-                # Resumo
                 try:
-                    resumo_element = await page.query_selector("div.prose p")
-                    resumo = await resumo_element.inner_text()
+                    resumo = await page.locator("div.prose p").nth(0).inner_text()
                 except:
                     resumo = "não encontrado"
 
-                # Fonte
                 try:
-                    fonte_element = await page.query_selector("strong:has-text('Fonte')")
+                    fonte_element = await page.locator("strong:text('Fonte')")
                     fonte = await fonte_element.inner_text()
                 except:
                     fonte = "não encontrado"
@@ -62,6 +66,3 @@ async def scrape_detail():
 
 if __name__ == "__main__":
     asyncio.run(scrape_detail())
-
-
-

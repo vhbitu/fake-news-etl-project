@@ -1,59 +1,61 @@
-import requests
+import asyncio
+from playwright.async_api import async_playwright
 import pandas as pd
 import time
+import random
 
-# Configurações iniciais
-BASE_URL = "https://api.aosfatos.org/posts"
-PARAMS = {
-    "format": "checagem",
-    "per_page": 12,  # Padrão de paginação da API
-    "page": 1
-}
+async def scrape_detail():
+    df_listagem = pd.read_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/raw/dados_listagem_aosfatos.csv")
 
-# Lista onde armazenaremos os dados coletados
-dados_coletados = []
+    # Teste ainda com 2 links antes de escalar
+    df_teste = df_listagem.head(2)
 
-# Descobrimos que o site possui 372 páginas (ajuste aqui se necessário)
-TOTAL_PAGINAS = 372
+    dados_detalhados = []
 
-for pagina in range(1, TOTAL_PAGINAS + 1):
-    print(f"Processando página {pagina} de {TOTAL_PAGINAS}...")
+    async with async_playwright() as p:
+        browser = await p.chromium.launch(headless=False)  # Deixe headless=False até validarmos tudo
+        context = await browser.new_context()
+        page = await context.new_page()
 
-    # Atualiza o número da página nos parâmetros
-    PARAMS["page"] = pagina
+        for index, row in df_teste.iterrows():
+            link = row['link']
+            print(f"Processando: {link}")
 
-    # Faz a requisição para a API
-    resposta = requests.get(BASE_URL, params=PARAMS)
+            try:
+                await page.goto(link, timeout=60000)
+                await page.wait_for_load_state("networkidle", timeout=60000)
+                await asyncio.sleep(2)
 
-    # Verifica se a requisição foi bem sucedida
-    if resposta.status_code == 200:
-        dados_json = resposta.json()
+                # Data de publicação
+                try:
+                    data_element = await page.locator("aside.text-sm.text-center.mb-5").inner_text()
+                    data_publicacao = data_element.strip()
+                except:
+                    data_publicacao = "não encontrado"
 
-        for item in dados_json['results']:
-            dados = {
-                "id": item.get("id"),
-                "titulo": item.get("title"),
-                "slug": item.get("slug"),
-                "veredito": item.get("verdict_label"),
-                "data_publicacao": item.get("published_at"),
-                "tags": [tag.get("name") for tag in item.get("tags", [])],
-                "resumo": item.get("summary"),
-                "fonte": item.get("source"),
-                "conteudo": item.get("content")
-            }
-            dados_coletados.append(dados)
+                # Resumo (primeiro parágrafo do conteúdo)
+                try:
+                    resumo_element = await page.locator("div#entry-content p").nth(0).inner_text()
+                    resumo = resumo_element.strip()
+                except:
+                    resumo = "não encontrado"
 
-    else:
-        print(f"Erro na página {pagina}: Status {resposta.status_code}")
+                dados_detalhados.append({
+                    'link': link,
+                    'data_publicacao': data_publicacao,
+                    'resumo': resumo
+                })
 
-    # Pequena pausa para não sobrecarregar o servidor
-    time.sleep(0.5)
+            except Exception as e:
+                print(f"Erro no link {link}: {e}")
 
-# Converte a lista em DataFrame
-df = pd.DataFrame(dados_coletados)
+            time.sleep(random.uniform(1, 2))
 
-# Salva o resultado final
-df.to_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/processed/dados_detalhados_aosfatos.csv", index=False, encoding="utf-8-sig")
+        await browser.close()
 
-print("Coleta finalizada com sucesso!")
+    df_detalhes = pd.DataFrame(dados_detalhados)
+    print(df_detalhes.head())
+
+if __name__ == "__main__":
+    asyncio.run(scrape_detail())
 
