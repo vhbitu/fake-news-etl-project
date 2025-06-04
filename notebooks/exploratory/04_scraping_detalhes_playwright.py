@@ -5,20 +5,17 @@ import time
 import random
 
 async def scrape_detail():
-    # Carrega o CSV de listagem
+    # Carrega o CSV completo da listagem
     df_listagem = pd.read_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/raw/dados_listagem_aosfatos.csv")
-
-    # Teste com 2 registros apenas
-    df_teste = df_listagem.head(2)
 
     dados_detalhados = []
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=False)  # Deixa headless=False só para conferirmos o carregamento
+        browser = await p.chromium.launch(headless=True)  # Agora rodamos em modo headless para produção
         context = await browser.new_context()
         page = await context.new_page()
 
-        for index, row in df_teste.iterrows():
+        for index, row in df_listagem.iterrows():
             link = row['link']
             print(f"Processando: {link}")
 
@@ -50,17 +47,17 @@ async def scrape_detail():
             except Exception as e:
                 print(f"Erro no link {link}: {e}")
 
+            # Pausa entre as requisições
             time.sleep(random.uniform(1, 2))
 
         await browser.close()
 
-    # Salva o resultado no processed
+    # Salva o dataset completo
     df_detalhes = pd.DataFrame(dados_detalhados)
-    df_detalhes.to_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/processed/dados_detalhados_aosfatos_parcial.csv", index=False, encoding="utf-8-sig")
+    df_detalhes.to_csv("C:/Users/vbitu/projects/fake-news-etl-project/data/processed/dados_detalhados_aosfatos.csv", index=False, encoding="utf-8-sig")
 
-    print("Coleta parcial finalizada com sucesso!")
+    print("Coleta completa finalizada com sucesso!")
     print(df_detalhes.head())
 
 if __name__ == "__main__":
     asyncio.run(scrape_detail())
-
