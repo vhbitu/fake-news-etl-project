@@ -130,5 +130,3 @@ analisar:
 ```
 
 ---
-
-Se quiser ajuda para incluir badges, links ou criar um tutorial de execução, só avisar!
