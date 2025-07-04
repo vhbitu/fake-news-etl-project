@@ -1,0 +1,112 @@
+Listagem de caminhos de pasta para o volume OS
+O número de série do volume é BEA6-7844
+C:.
+¦   .env
+¦   .gitignore
+¦   estrutura_projeto.txt
+¦   LICENSE
+¦   Makefile
+¦   README.md
+¦   requirements.txt
+¦   setup.py
+¦   test_environment.py
+¦   tox.ini
+¦   
++---dashboard
+¦       dashboard_fake_news_v1.pbix
+¦       
++---data
+¦   +---external
+¦   ¦       .gitkeep
+¦   ¦       frequencia_de_palavras.csv
+¦   ¦       
+¦   +---interim
+¦   ¦       .gitkeep
+¦   ¦       dados_classificados_completos.csv
+¦   ¦       dados_classificados_completos_atualizado.csv
+¦   ¦       
+¦   +---processed
+¦   ¦       .gitkeep
+¦   ¦       dados_classificados_chatgpt_0_100.csv
+¦   ¦       dados_classificados_chatgpt_101_2500.csv
+¦   ¦       dados_classificados_chatgpt_2501_4419.csv
+¦   ¦       dados_unificados_aosfatos.csv
+¦   ¦       dados_unificados_com_topicos.csv
+¦   ¦       dados_unificados_com_topicos_titulos.csv
+¦   ¦       resultados_bertopic.csv
+¦   ¦       resultados_bertopic_supervisionado.parquet
+¦   ¦       resultado_final.parquet
+¦   ¦       resultado_final_csv_ajustado.csv
+¦   ¦       resultado_final_para_download.csv
+¦   ¦       
+¦   +---public
+¦   ¦       fake_news_classificadas.csv
+¦   ¦       
+¦   +---raw
+¦           .gitkeep
+¦           dados_detalhados_aosfatos.csv
+¦           dados_listagem_aosfatos.csv
+¦           
++---docs
+¦       commands.rst
+¦       conf.py
+¦       getting-started.rst
+¦       index.rst
+¦       make.bat
+¦       Makefile
+¦       
++---models
+¦       .gitkeep
+¦       
++---notebooks
+¦   ¦   .gitkeep
+¦   ¦   
+¦   +---exploratory
+¦   ¦       01_scraping_exploratorio.ipynb
+¦   ¦       02_scraping_detalhes_playwright.py
+¦   ¦       03_preprocessing_merge.ipynb
+¦   ¦       04_eda_inicial.ipynb
+¦   ¦       05_exploracao_tematica_bertopic.ipynb
+¦   ¦       07_analise_topicos_bertopic.ipynb
+¦   ¦       08_analise_topicos_chatgpt.ipynb
+¦   ¦       
+¦   +---public_dataset
+¦           01_tratamento_dataset_public.ipynb
+¦           
++---references
+¦       .gitkeep
+¦       
++---reports
+¦   ¦   .gitkeep
+¦   ¦   
+¦   +---figures
+¦           .gitkeep
+¦           
++---scripts
+¦       09_classificacao_vereditos_chatgpt.py
+¦       classificacao_fake_news_chatgpt.py
+¦       
++---src
+    ¦   __init__.py
+    ¦   
+    +---data
+    ¦       .gitkeep
+    ¦       make_dataset.py
+    ¦       __init__.py
+    ¦       
+    +---features
+    ¦       .gitkeep
+    ¦       build_features.py
+    ¦       __init__.py
+    ¦       
+    +---models
+    ¦       .gitkeep
+    ¦       predict_model.py
+    ¦       train_model.py
+    ¦       __init__.py
+    ¦       
+    +---visualization
+            .gitkeep
+            visualize.py
+            __init__.py
+            
