@@ -97,11 +97,18 @@ dashboard/*.pbix
 ## Requisitos Básicos (`requirements.txt`)
 
 ```
-pandas
-matplotlib
-seaborn
-openai
-playwright
+pandas>=1.3.0
+numpy>=1.21.0
+matplotlib>=3.4.0
+seaborn>=0.11.0
+openai>=0.27.0
+playwright>=1.20.0
+dateparser>=1.1.0
+bertopic[visualization]>=0.14.0
+umap-learn>=0.5.3
+hdbscan>=0.8.29
+sentence-transformers>=2.2.0
+plotly>=5.10.0
 ```
 
 ---
