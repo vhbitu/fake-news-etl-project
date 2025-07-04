@@ -84,9 +84,11 @@ Victor Hugo Bitu Patricio – [LinkedIn](https://www.linkedin.com/in/vhbitu/)
 __pycache__/
 *.py[cod]
 .env
-data/raw/
-data/interim/
-data/processed/
+
+Ignora toda a pasta data, exceto a pasta data/public
+
+/data/*
+!/data/public/
 dashboard/*.pbix
 .vscode/
 .DS_Store
