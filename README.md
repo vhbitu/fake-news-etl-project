@@ -1,56 +1,77 @@
-
-````markdown
+```markdown
 # Fake News ETL Project
 
-Projeto para coleta, processamento e análise de notícias falsas, usando scraping, NLP e ChatGPT para classificação.
+Projeto para coleta, tratamento, classificação e análise de dados de notícias falsas, utilizando técnicas de web scraping, NLP e APIs do ChatGPT para classificação temática e de vereditos.
 
 ---
 
 ## Estrutura do Projeto
 
-- **data/**: dados brutos, processados, externos e públicos  
-- **dashboard/**: dashboards em Power BI  
-- **docs/**: documentação  
-- **models/**: modelos e scripts ML  
-- **notebooks/**: análises exploratórias e experimentos  
-- **reports/**: relatórios e figuras  
-- **scripts/**: scripts de scraping, ETL e classificação  
-- **src/**: código modular (features, modelos, visualização)  
-- Arquivos raiz: `.gitignore`, `LICENSE`, `Makefile`, `README.md`, `requirements.txt`, `setup.py`
+```
 
----
+fake-news-etl-project/
+├── data/
+│   ├── external/
+│   ├── interim/
+│   ├── processed/
+│   ├── public/
+│   └── raw/
+├── dashboard/
+│   └── dashboard\_fake\_news\_v1.pbix
+├── docs/
+├── models/
+├── notebooks/
+│   ├── exploratory/
+│   └── experiments/
+├── reports/
+├── scripts/
+├── src/
+├── .gitignore
+├── LICENSE
+├── Makefile
+├── README.md
+├── requirements.txt
+└── setup.py
 
-## Etapas principais
-
-1. **Coleta de dados:** Selenium e Playwright (scripts `01` e `02`)  
-2. **Tratamento:** merge e limpeza (`03`)  
-3. **Classificação:** ChatGPT para temas e vereditos (`07` e `09`)  
-4. **Análise:** notebooks exploratórios (`08`)  
-5. **Dashboard:** Power BI (`dashboard_fake_news_v1.pbix`)
-
----
-
-## Como rodar
-
-1. Configure a chave da API OpenAI:
-
-```bash
-# Linux/macOS
-export OPENAI_API_KEY='sua-chave'
-
-# Windows PowerShell
-setx OPENAI_API_KEY "sua-chave"
 ````
 
-2. Instale as dependências:
+---
+
+## Principais Etapas do Projeto
+
+1. **Coleta de dados:** scraping com Selenium e Playwright (`scripts/01_scraping_listagem_selenium.py`, `scripts/02_scraping_detalhes_playwright.py`)  
+2. **Tratamento e integração:** limpeza e merge dos dados (`scripts/03_merge_scraping.py`)  
+3. **Classificação:** classificação temática e de vereditos via API do ChatGPT (`scripts/07_classificacao_fake_news_chatgpt.py`, `scripts/09_classificacao_vereditos_chatgpt.py`)  
+4. **Análise exploratória:** notebooks para visualização e análise dos dados (`notebooks/exploratory/`)  
+5. **Dashboard:** painel interativo em Power BI (`dashboard/dashboard_fake_news_v1.pbix`)
+
+---
+
+## Como Executar
+
+### 1. Configure a chave API da OpenAI como variável de ambiente
+
+**Linux/macOS**
+
+```bash
+export OPENAI_API_KEY='sua-chave-aqui'
+````
+
+**Windows PowerShell**
+
+```powershell
+setx OPENAI_API_KEY "sua-chave-aqui"
+```
+
+### 2. Instale as dependências
 
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Execute os scripts na ordem indicada para coletar, tratar, classificar e analisar.
+### 3. Execute os scripts na ordem para coletar, tratar, classificar e analisar os dados
 
-4. Explore os notebooks e visualize o dashboard no Power BI.
+### 4. Explore os notebooks para análises detalhadas ou abra o dashboard no Power BI para visualização interativa
 
 ---
 
@@ -60,7 +81,7 @@ Victor Hugo Bitu Patricio – [LinkedIn](https://www.linkedin.com/in/vhbitu/)
 
 ---
 
-## .gitignore sugerido
+## .gitignore Sugerido
 
 ```
 __pycache__/
@@ -76,7 +97,7 @@ dashboard/*.pbix
 
 ---
 
-## requirements.txt básico
+## Requisitos Básicos (`requirements.txt`)
 
 ```
 pandas
@@ -88,9 +109,11 @@ playwright
 
 ---
 
-## Makefile simples
+## Makefile Simplificado
 
 ```makefile
+.PHONY: all clean
+
 all: coletar tratar classificar analisar
 
 coletar:
@@ -111,4 +134,5 @@ analisar:
 
 ---
 
+Fim
 
