@@ -1,4 +1,3 @@
-```markdown
 # Fake News ETL Project
 
 Projeto para coleta, tratamento, classificação e análise de dados de notícias falsas, utilizando técnicas de web scraping, NLP e APIs do ChatGPT para classificação temática e de vereditos.
@@ -8,7 +7,6 @@ Projeto para coleta, tratamento, classificação e análise de dados de notícia
 ## Estrutura do Projeto
 
 ```
-
 fake-news-etl-project/
 ├── data/
 │   ├── external/
@@ -17,7 +15,7 @@ fake-news-etl-project/
 │   ├── public/
 │   └── raw/
 ├── dashboard/
-│   └── dashboard\_fake\_news\_v1.pbix
+│   └── dashboard_fake_news_v1.pbix
 ├── docs/
 ├── models/
 ├── notebooks/
@@ -32,8 +30,7 @@ fake-news-etl-project/
 ├── README.md
 ├── requirements.txt
 └── setup.py
-
-````
+```
 
 ---
 
@@ -55,7 +52,7 @@ fake-news-etl-project/
 
 ```bash
 export OPENAI_API_KEY='sua-chave-aqui'
-````
+```
 
 **Windows PowerShell**
 
@@ -134,5 +131,4 @@ analisar:
 
 ---
 
-Fim
-
+Se quiser ajuda para incluir badges, links ou criar um tutorial de execução, só avisar!
