@@ -144,11 +144,11 @@ analisar:
 
 ## 📊 Dashboard de Fake News
 
-**Página 1 – Evolução das Fake News e Principais Temas:**
+**Página 1 –  Introdução e Nuvem de Palavras:**
 
 ![Dashboard Página 1](dashboard/dashboard_fake_news_pag1.png)
 
-**Página 2 – Introdução e Nuvem de Palavras:**
+**Página 2 – Evolução das Fake News e Principais Temas:**
 
 ![Dashboard Página 2](dashboard/dashboard_fake_news_pag2.png)
 
