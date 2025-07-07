@@ -15,7 +15,9 @@ fake-news-etl-project/
 │   ├── public/
 │   └── raw/
 ├── dashboard/
-│   └── dashboard_fake_news_v1.pbix
+│   ├── dashboard_fake_news_v1.pbix
+│   ├── dashboard_fake_news_pag1
+│   └── dashboard_fake_news_pag2
 ├── docs/
 ├── models/
 ├── notebooks/
@@ -137,5 +139,19 @@ classificar:
 analisar:
 	jupyter nbconvert --to notebook --execute notebooks/exploratory/08_analise_classificacao_chatgpt.ipynb
 ```
+
+---
+
+## 📊 Dashboard de Fake News
+
+**Página 1 – Evolução das Fake News e Principais Temas:**
+
+![Dashboard Página 1](dashboard/dashboard_fake_news_pag1.png)
+
+**Página 2 – Introdução e Nuvem de Palavras:**
+
+![Dashboard Página 2](dashboard/dashboard_fake_news_pag2.png)
+
+Este dashboard mostra a evolução da desinformação no Brasil entre 2015 e 2025, com foco em eventos críticos como eleições e pandemia. Também destaca os principais temas recorrentes nas fake news analisadas.
 
 ---
